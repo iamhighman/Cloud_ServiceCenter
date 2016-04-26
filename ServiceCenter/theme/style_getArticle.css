@@ -1,0 +1,159 @@
+* {
+  padding: 0px;
+  margin: 0px;
+}
+body {
+	font-family: verdana, sans-serif;
+  background: #383838;
+  font-size: 12px;
+}
+#wrap {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fff;
+}
+#head {
+  height: 80px;
+}
+#head h1 {
+  padding-left: 20px;
+  padding-top: 10px;
+}
+#head h3 {
+  padding-left: 40px;
+  font-style: italic;
+}
+#head #left {
+  float: left;
+}
+#head #right {
+  float: right;
+  padding-top: 15px;
+  padding-right: 9px;
+}
+#head #right .button {
+  border: 1px solid #509ef1;
+  height: 20px;
+}
+#head #right .box {
+  border: 1px solid #509ef1;
+  height: 18px;
+  margin-right: 5px;
+}
+#menu {
+  background: url('menubg.png');
+  height: 28px;
+  line-height: 28px;
+  float: left;
+  padding: 0;
+  border: 0px;
+}
+#menu ul { 
+  height: 28px;
+  line-height: 28px;
+  float: left;
+  list-style: none;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+  width: 600px;
+  border: 0px;
+}
+#menu ul li {
+  float: left !important;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#menu ul li a {  
+  color: #fff;
+  float: left;
+  display: block;
+  text-decoration: none;
+  padding: 0 10px;
+  border: 0px;
+}
+#menu ul li a:hover,#menu ul li.active {
+  background: url('menuhover.png');
+  text-decoration: none;
+  border: 0px;
+}
+#content {
+  width: 600px;
+}
+
+fieldset {
+  border: 0;
+}
+fieldset input {
+  width: 125px;
+  margin-left: 15px;
+}
+.break {
+  clear: both;
+}
+#content #main {
+  padding: 10px;
+  padding-left:10px; 
+  width: 420px;
+}
+#content #main h1 {
+  font-size: 25px;
+  font-weight: bold;
+  color: #383838;
+  border-bottom: 2px solid #509ef1;
+  margin-bottom: 4px;
+}
+#content #main h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #0a5ac8;
+  margin-bottom: 4px;
+}
+#content #main ul {
+  margin-left: 10px;
+}
+#content #main ol {
+  margin-left: 15px;
+}
+blockquote {
+  border-left: 3px solid #509ef1;
+  margin-left: 20px;
+  padding: 5px;
+}
+code {
+  border: 1px solid #ddd;
+}
+#foot {
+  margin-top: 15px;
+  background: url('menubg.png');
+  height: 28px;
+  width: 700px;
+  color: #fff;
+  text-align: center;
+}
+#foot .foot {
+  margin-top: 5px;
+}
+#space {
+  height: 10px;
+}
+#foot .foot a {
+  color: #ddd;
+  text-decoration: none;
+}
+#foot .foot a:hover {
+  text-decoration: underline;
+}
+a {
+  color: #509ef1;
+  text-decoration: none;
+}
+a:hover {
+  color: #0a5ac8;
+  text-decoration: underline;
+}

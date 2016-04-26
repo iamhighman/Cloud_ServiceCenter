@@ -1,0 +1,153 @@
+<?php
+
+class CheckCredit
+{
+
+    var $googleF;
+    var $datacenterF;
+    
+    var $title="Check Credit Gadget";
+    var $action="CheckCredit";
+
+    public function __construct()
+    {
+        $this->googleF = new GoogleClass(); 
+        $this->datacenterF = new DataCenter();        
+    }
+    
+    public function getAction(){
+    	 return $this->action;
+    }
+
+    public function getTitle(){
+    	 return $this->title;
+    }
+    
+    public function getPref(){
+    	 $pref = array();
+    	 array_push($pref, array("prefName"=> "uid" , "prefValue"=> ""));
+    	 array_push($pref, array("prefName"=> "upa" , "prefValue"=> ""));
+    	 return $pref;
+    }
+
+    public function CheckCredit($ap, $token){
+    	  $dataset1 = $this->getBankData_Cloud(1); 
+    	  $dataset2 = $this->getBankData_Cloud(2);
+    	  
+        $dataArr1 = $this->datacenterF->getData($dataset1, $token);
+        $dataArr2 = $this->datacenterF->getData($dataset2, $token); 
+        
+        $income = $dataArr1[2];
+        $job = $dataArr1[3];
+        $InvoiceAmount = $dataArr2[2];
+        $InvoiceType = $dataArr2[3];
+        $InvoiceAssign = $dataArr2[4];
+        $InvoiceDate = $dataArr2[5];        
+        
+        switch($job){
+        	 case "Public": $JobMultiplier = 0.8;
+        	 break;
+        	 case "Dealer": $JobMultiplier = 0.7;
+        	 break;
+        	 case "Service": $JobMultiplier = 0.6;
+        	 break;
+        	 case "Argiculture": $JobMultiplier = 0.5;
+        	 break;  
+        	 case "Research": $JobMultiplier = 0.75;
+        	 break;          	 
+        	 default: $JobMultiplier = 0.3;
+        	 break;
+        }
+        
+//if(checkInvoice)
+
+        switch($InvoiceAssign){
+        	 case "HiBuilding": $AssignMultiplier = 0.8;
+        	 break;
+        	 case "McDonalxx": $AssignMultiplier = 0.1;
+        	 break;
+        	 case "MyArgiculture": $AssignMultiplier = 0.5;
+        	 break;
+        	 case "NIKKE": $AssignMultiplier = 0.15;
+        	 break;  
+        	 case "Orange": $AssignMultiplier = 0.08;
+        	 break;  
+        	 case "TaiwanSemi": $AssignMultiplier = 0.01;
+        	 break;
+        	 case "XMall": $AssignMultiplier = 0.6;
+        	 break;
+        	 case "Yahxx": $AssignMultiplier = 0.18;
+        	 break;        	         	 
+        	 default: $AssignMultiplier = 0.5;
+        	 break;
+        }
+        
+        $processTime = rand(1,3);
+        $pid = $this->ProcessStart($ap, $processTime);
+        
+        $Loanable = ($income * $JobMultiplier) + ($InvoiceAmount * $AssignMultiplier);
+        $Probability = $JobMultiplier * $AssignMultiplier;
+        echo $Loanable."/".$Probability;
+        sleep($processTime);
+        $this->ProcessEnd($pid);
+        //$return = array($Loanable, $Probability);
+        //return $return;       
+    }
+    
+    public function ProcessStart($ap, $processTime){
+       $sql1 = "INSERT INTO `SERVICECENTER`.`MONITOR` ";
+       $sql2 = " (`ID`,`AP`,`SEC`,`ACTIVE`) VALUES";
+       $sql3 = " ('','$ap','$processTime', '1')";
+       $sql = $sql1.$sql2.$sql3;
+       //echo $sql;
+       if(mysql_query($sql)){
+       	  return mysql_insert_id();
+          //echo "Monitor Added SuccessfuL!!";
+       }else{
+          //echo "Link Database failed, please try again later!!";
+          die();
+       }
+    }
+
+    public function ProcessEnd($pid){
+       $sql1 = " UPDATE `SERVICECENTER`.`MONITOR` ";
+       $sql2 = " SET `ACTIVE` = '0'";
+       $sql3 = " WHERE ID = '$pid' ";
+       $sql = $sql1.$sql2.$sql3;
+       //echo $sql;
+       if(mysql_query($sql)){
+           //echo "Service Bank Updated SuccessfuL!!";   
+       }else{
+           //echo "Link Database failed, please try again later!!";
+           die();
+       }
+       
+       $_POST = null;       	  
+    }
+    
+    public function getBankData_Cloud($serial){
+    	  //Cloud DataCenter #1
+        //TOKEN * INCOME * JOB *   
+        //Cloud DataCenter #2
+        //TOKEN * MARRIAGE * GENDER *     
+        switch($serial){
+           case 1:  
+             $ViewLink = "http://spreadsheets.google.com/pub?key=rq6KPB4iCMan0BVaTp4Ad_w";        
+           break;
+           case 2:
+             $ViewLink = "http://spreadsheets.google.com/pub?key=r0OEIVjry9RigCBajuRBE7A";  
+           break;
+           
+           default: echo "Lack of serial!!";	
+        }
+//print_r($this->googleF->getGDB($ViewLink));
+        return $this->googleF->getGDB($ViewLink); //Display DB       	
+    }
+
+    // 解構函式
+    public function __destruct()
+    {
+        $this->link = NULL;
+    }
+
+}
